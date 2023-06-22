@@ -1,0 +1,31 @@
+server:
+  port: 8500
+  servlet:
+    #为了防止一会在服务之间跳转导致Cookie打架（因为所有服务地址都是localhost，都会存JSESSIONID）
+    #这里修改一下context-path，这样保存的Cookie会使用指定的路径，就不会和其他服务打架了
+    #但是注意之后的请求都得在最前面加上这个路径
+    context-path: /sso
+spring:
+  datasource:
+    #url: jdbc:mysql://localhost:3306/mysql-generator?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&autoReconnect=true&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/sca?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: sso
+security:
+  oauth2:
+    client:
+      #不多说了
+      client-id: web
+      client-secret: 654321
+      #Token获取地址
+      access-token-uri: http://localhost:8500/sso/oauth/token
+      #验证页面地址
+      user-authorization-uri: http://localhost:8500/sso/oauth/authorize
+    resource:
+      #Token信息获取和校验地址
+      token-info-uri: http://localhost:8500/sso/oauth/check_token
+      jwt:
+        key-value: lbwnb #注意这里要跟验证服务器的密钥一致，这样算出来的签名才会一致

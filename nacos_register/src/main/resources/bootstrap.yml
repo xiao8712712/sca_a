@@ -1,0 +1,26 @@
+
+spring:
+  application:
+    # 会自动根据服务名拉取data-id对应的配置文件.如果data-id跟服务名不一致 就需要手动指定data-id
+    # 跟服务名相同的data-id的配置文件,称之为默认的配置文件
+    # 除了默认的配置文件,其他配置文件必须写上后缀
+    name: sca-commons
+  cloud:
+    nacos:
+      discovery:  #注册中心
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+      config: #配置中心
+        #服务注册名
+        prefix: ${spring.application.name}
+        #指定nacos配置中心地址
+        server-addr: 127.0.0.1:8848
+        file-extension: yml # 使用的 nacos 配置集的 dataId 的文件拓展名，同时也是
+        #  Nacos 配置集的配置格式，默认为 properties
+        namespace: b5aa2037-aa84-4f55-8017-11f7063909a2  # 使用的 nacos 的命名空间，默认为 null
+        group: DEFAULT_GROUP # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP共享配置集数组
+    discovery:
+      server-addr: 127.0.0.1:8848
+  profiles:
+    active: dev

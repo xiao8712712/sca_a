@@ -1,0 +1,5 @@
+# Project exclude paths
+/nacos_register/target/
+/sca_a_commons/target/
+/sca_a_login/target/
+/sca_a_sso/target/
